@@ -29,9 +29,9 @@ module.exports = {
     });
     req.session.currentUser = match;
     if(req.session.currentUser){
-      res.send({userFound: true});
+      res.status(200).send({userFound: true});
     } else {
-      res.send({userFound: false});
+      res.status(404).send({userFound: false});
     }
   }
 }

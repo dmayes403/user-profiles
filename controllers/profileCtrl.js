@@ -22,13 +22,32 @@ var profiles = [
 ];
 
 module.exports = {
-  getFriendsProfiles: function(req, res, next){
-    const friendsArr = req.session.friends;
+  getFriends: function(req, res, next){
+    const friendsArr = req.session.currentUser.friends;
+    console.log(req.session.currentUser.friends);
     const friendObjs = [];
-    profiles.filter((profile) => {
-      return friendsArr.find((friend) => {
-        profile.name === friend.name
-      })
+    // profiles.filter((profile) => {
+    //   friendObjs.push(friendsArr.find((friend) => {
+    //     return profile.name === friend.name
+    //   }))
+    // })
+        // profiles.forEach(profile) => {
+        //   friendsArr.forEach((friend) => {
+        //     if(profile.name === friend.name){
+        //       friendObjs.push(profile)
+        //     }
+        //   })
+        // })
+    for (var i = 0;i < friendsArr.length; i++){
+      for(var g = 0; g < profiles.length; g++){
+        if(profiles[g].name === friendsArr[i]){
+          friendObjs.push(profiles[i]);
+        }
+      }
+    }
+    res.status(200).send({
+      currentUser: req.session.currentUser,
+      friends: friendObjs
     })
   }
 }

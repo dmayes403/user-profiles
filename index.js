@@ -8,7 +8,7 @@ const useCtrl = require('./controllers/useCtrl');
 const port = 8000;
 
 const app = express();
-
+app.use(express.static('public'))
 app.listen(port, () => {
   console.log(`listening on port ${port}`)
 })
@@ -29,3 +29,4 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.post('/api/login', useCtrl.login)
+app.get('/api/profiles', profileCtrl.getFriends)
